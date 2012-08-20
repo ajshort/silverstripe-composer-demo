@@ -1,0 +1,149 @@
+{
+	"name": "silverstripe/installer",
+	"description": "The SilverStripe Framework Installer",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.zendframework.com"
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "silverstripe/framework",
+				"version": "dev-master",
+				"description": "The SilverStripe framework",
+				"homepage": "http://silverstripe.org",
+				"license": "BSD-3-Clause",
+				"keywords": ["silverstripe", "framework"],
+				"authors": [
+					{
+						"name": "SilverStripe",
+						"homepage": "http://silverstripe.com"
+					},
+					{
+						"name": "The SilverStripe Community",
+						"homepage": "http://silverstripe.org"
+					}
+				],
+				"require": {
+					"silverstripe/framework-deps": "self.version"
+				},
+				"autoload": {
+					"psr-0": {
+						"SilverStripe": "src/"
+					},
+					"files": [
+						"src/SilverStripe/Framework/functions.php"
+					]
+				},
+				"source": {
+					"url": "https://github.com/ajshort/sapphire",
+					"type": "git",
+					"reference": "composer"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "silverstripe/framework-deps",
+				"version": "dev-master",
+				"type": "metapackage",
+				"require": {
+					"php": ">=5.3.2",
+					"symfony/filesystem": "2.1.*",
+					"symfony/yaml": "2.1.*",
+					"zendframework/zend-cache": "2.0.*",
+					"zendframework/zend-eventmanager": "2.0.*",
+					"zendframework/zend-loader": "2.0.*",
+					"zendframework/zend-servicemanager": "2.0.*",
+					"zendframework/zend-stdlib": "2.0.*"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "silverstripe/cms",
+				"version": "dev-master",
+				"description": "The SilverStripe Content Management System",
+				"type": "silverstripe-module",
+				"keywords": ["silverstripe", "cms"],
+				"homepage": "http://silverstripe.org/cms",
+				"license": "BSD-3-Clause",
+				"authors": [
+					{
+						"name": "SilverStripe",
+						"homepage": "http://silverstripe.com"
+					},
+					{
+						"name": "The SilverStripe Community",
+						"homepage": "http://silverstripe.org"
+					}
+				],
+				"require": {
+					"php": ">=5.3.2",
+					"silverstripe/framework": "self.version"
+				},
+				"autoload": {
+					"silverstripe-classmap": {}
+				},
+				"source": {
+					"url": "https://github.com/ajshort/silverstripe-cms",
+					"type": "git",
+					"reference": "composer"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "silverstripe-themes/simple",
+				"version": "dev-master",
+				"description": "The SilverStripe simple theme (default SilverStripe 3 theme)",
+				"type": "silverstripe-theme",
+				"keywords": ["silverstripe", "theme"],
+				"license": "BSD-3-Clause",
+				"authors": [
+					{
+						"name": "Sara Tušar (Innovaif)",
+						"homepage": "http://www.saratusar.com"
+					}
+				],
+				"require": {
+					"silverstripe/framework": "self.version"
+				},
+				"source": {
+					"url": "https://github.com/ajshort/silverstripe-simple",
+					"type": "git",
+					"reference": "master"
+				}
+			}
+		}
+	],
+	"autoload": {
+		"psr-0": { "": "application/src/" }
+	},
+	"require": {
+		"php": ">=5.3.2",
+		"silverstripe/framework": "dev-master",
+		"silverstripe/cms": "dev-master",
+		"silverstripe-themes/simple": "master"
+	},
+	"minimum-stability": "dev",
+	"scripts": {
+		"post-install-cmd": [
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::update_modules",
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::install_assets",
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::build_database"
+		],
+		"post-update-cmd": [
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::update_modules",
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::install_assets",
+			"SilverStripe\\Framework\\Composer\\ScriptCallbacks::build_database"
+		]
+	},
+	"extra": {
+		"silverstripe-application-class": "Application"
+	}
+}
